@@ -6,7 +6,6 @@ public class LeftPrinter extends Printer {
 
     public LeftPrinter(String text, int width) {
         super(text, width);
-        this.algorithm = Algorithms.LEFT;
     }
 
     @Override

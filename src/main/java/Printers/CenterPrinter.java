@@ -4,7 +4,6 @@ public class CenterPrinter extends LeftPrinter {
 
     public CenterPrinter(String text, int width) {
         super(text, width);
-        this.algorithm = Algorithms.CENTER;
     }
 
     @Override

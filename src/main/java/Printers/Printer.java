@@ -9,7 +9,6 @@ import java.util.StringTokenizer;
 public abstract class Printer {
     protected String text;
     protected int width;
-    protected Algorithms algorithm;
     protected StringTokenizer tokenizer;
     protected StringBuilder displayString;
     protected StringBuilder currentLineString = new StringBuilder();

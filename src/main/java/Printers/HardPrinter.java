@@ -1,10 +1,8 @@
 package Printers;
 
 public class HardPrinter extends LeftPrinter {
-
     public HardPrinter(String text, int width) {
         super(text, width);
-        this.algorithm = Algorithms.HARD;
     }
 
     @Override

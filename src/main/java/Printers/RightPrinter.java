@@ -4,7 +4,6 @@ public class RightPrinter extends LeftPrinter {
 
     public RightPrinter(String text, int width) {
         super(text, width);
-        this.algorithm = Algorithms.RIGHT;
     }
 
     @Override
