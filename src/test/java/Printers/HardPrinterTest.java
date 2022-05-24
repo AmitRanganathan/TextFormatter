@@ -13,7 +13,7 @@ public class HardPrinterTest {
                 "at hard ju\n" +
                 "stificatio\n" +
                 "n looks li\n" +
-                "ke. ";
+                "ke.";
 
         HardPrinter hardPrinter = new HardPrinter(sentence, width);
         assertEquals(expected, hardPrinter.createString());
