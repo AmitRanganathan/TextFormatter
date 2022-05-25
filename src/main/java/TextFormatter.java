@@ -6,15 +6,53 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 /**
+ * TextFormatter class that can read from both command line arguments and user input.
+ * Expects only 2 command line arguments
+ *  1) algorithm
+ *  2) width
+ * If these 2 command line arguments are passed, and they are valid, user will be prompted to
+ * enter a text to format.
  *
+ * If these 2 command line arguments are not passed, then manual mode is triggered and user is prompted
+ * to enter a valid algorithm, width, and text.
+ *
+ * Prints the formatted text using the specified algorithm and width.
  */
 public class TextFormatter {
     private static final Logger LOGGER = Logger.getLogger(TextFormatter.class.getName());
 
     public static void main(String[] args) {
-        while (true) {
-            process();
+        if (args != null && args.length == 2) { // There must be 3 arguments passed in
+            processArguments(args);
+        } else {
+            System.out.println("Invalid number of arguments passed... Triggering manual mode.");
+            while (true) {
+                process();
+            }
         }
+
+    }
+
+    private static void processArguments(String[] args) {
+        // Validate the algorithm
+        String algorithm = args[0];
+        if (!Arrays.asList(Constants.validAlgorithms).contains(algorithm)) {
+            System.out.println("Invalid algorithm specified. Must be center, full, left, right, or hard.");
+            System.exit(-1);
+        }
+        
+        int width = 0;
+        try {
+            width = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid width specified. Must be valid int value.");
+            System.exit(-1);
+        }
+
+        Scanner input = new Scanner(System.in); // Scanner for user input
+        String text = getValidTextFromUser(input);
+        printFormattedString(text, algorithm, width);
+
     }
 
     private static void process() {
@@ -50,24 +88,8 @@ public class TextFormatter {
 
         input.nextLine(); // Need to call nextLine after nextInt()
 
-        String text = "";
-        boolean validText = false;
-        while (!validText) {
-            System.out.print("Please enter the text you wish to format: ");
-            text = input.nextLine();
-            if (!text.isBlank() && !text.isEmpty()) {
-                validText = true;
-            }
-        }
-
-        String formattedText = formatText(text, algorithm , width);
-        System.out.println("------------------ FORMATTED TEXT ------------------ ");
-        System.out.println();
-
-        System.out.println(formattedText);
-
-        System.out.println();
-        System.out.println("------------------ END FORMATTED TEXT ------------------ ");
+        String text = getValidTextFromUser(input);
+        printFormattedString(text, algorithm, width);
     }
 
     private static String formatText(String text, String algorithm, int width) {
@@ -89,4 +111,30 @@ public class TextFormatter {
                 throw new RuntimeException("Invalid algorithm identified... Cannot format text...");
         }
     }
-}
+
+    /*
+    Helper method to get valid sentence from user to use as text
+     */
+    private static String getValidTextFromUser(Scanner scanner) {
+        String text = "";
+        boolean validText = false;
+        while (!validText) {
+            System.out.print("Please enter the text you wish to format: ");
+            text = scanner.nextLine();
+            if (!text.isBlank() && !text.isEmpty()) {
+                validText = true;
+            }
+        }
+        return text;
+    }
+
+    private static void printFormattedString(String text, String algorithm, int width) {
+        String formattedText = formatText(text, algorithm, width);
+        System.out.println("------------------ FORMATTED TEXT ------------------ ");
+        System.out.println();
+
+        System.out.println(formattedText);
+
+        System.out.println();
+        System.out.println("------------------ END FORMATTED TEXT ------------------ ");
+    }}
