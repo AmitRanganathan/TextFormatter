@@ -22,7 +22,7 @@ public class TextFormatter {
     private static final Logger LOGGER = Logger.getLogger(TextFormatter.class.getName());
 
     public static void main(String[] args) {
-        if (args != null && args.length == 2) { // There must be 3 arguments passed in
+        if (args != null && args.length == 2) { // There must be 2 arguments passed in
             processArguments(args);
         } else {
             System.out.println("Invalid number of arguments passed... Triggering manual mode.");
@@ -106,6 +106,8 @@ public class TextFormatter {
             case (Constants.HARD):
                 HardPrinter hardPrinter = new HardPrinter(text, width);
                 return hardPrinter.createString();
+            case (Constants.FULL):
+                return "Sorry, this algorithm has not been implemented! =/";
             default:
                 LOGGER.warning("Invalid algorithm identified... Cannot format text...");
                 throw new RuntimeException("Invalid algorithm identified... Cannot format text...");
